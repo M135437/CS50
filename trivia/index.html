@@ -30,20 +30,23 @@
                 }
             }
 
-            function checkFreeResponse(event) {
+            function checkFreeResponse(event, form) {
                 event.preventDefault(); // avoid reloading page
-                let button = event.target;
-                let input = button.parentElement.querySelector("input");
+                let button = event.currentTarget;
+ //               let input = button.parentElement.querySelector("input");
+ //               let input = document.getElementById("freeInput");
+                let input = form.querySelector("input")
+                input.classList.remove("feedbackCorrect", "feedbackInCorrect");
                 let feedbackP2 = document.getElementsByClassName('feedback2')[0];
                 if (input.value === "Switzerland") {
-                    input.style.backgroundColor = "Green";
-                    document.getElementsByClassName("feedback2").innerText = "Correct!";
+                    input.classList.add("feedbackCorrect");
                     feedbackP2.innerHTML = "Correct!";
+//   document.getElementsByClassName("feedback2").innerText = "Correct!";
 //                    feedbackP2.style.backgroundColor = "Green";
                 } else {
-                    input.style.backgroundColor = "Red";
-                    document.getElementsByClassName("feedback2").innerText = "Incorrect!";
+                    input.classList.add("feedbackInCorrect");
                     feedbackP2.innerHTML = "Incorrect";
+//  document.getElementsByClassName("feedback2").innerText = "Incorrect!";
 //                    feedbackP2.style.backgroundColor = "Red";
                 };
             };
@@ -71,8 +74,9 @@
                 <h2>Part 2: Free Response</h2>
                 <h3>In which country is it illegal to own only one guine pig, as a lone guinea pig might get lonely?</h3>
                 <hr>
-                <form onsubmit="checkFreeResponse(event)"> <!-- action="" would send to reload current page (or alternative if "" filled with a target)  -->
-                <input id="freeInput" type="text">
+                <form onsubmit="checkFreeResponse(event, this)"> <!-- action="" would send to reload current page (or alternative if "" filled with a target)  -->
+                <!-- <input id="freeInput" type="text"> -->
+                <input type="text">
                 <button type="submit" id="checkFreeResponseButton">Check Answer</button>
                 </form>
                 <p class="feedback2"></p>
